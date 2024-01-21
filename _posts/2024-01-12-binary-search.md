@@ -5,7 +5,7 @@ description: Binary Search Implemantation
 categories: [Data Structures and Algorithms]
 tags: [blog, coding, computer-science , notes, computer, data-structures-and-algorithms-for-coding-interview, data-structures,algorithms, interview, coding-interview, dsalgo, leetcode, gfg, geeksforgeeks, dsa, binary-search]
 image:
-  path: /assets/binary_search.jpg
+  path: ./assets/binary_search.jpg
   width: 660
   height: 132
   alt: Binary Search
