@@ -10,7 +10,6 @@ mermaid: false
 ---
 
 # Problem 1: Binary Search Algorithm
-![udp segment](/assets/binary_search.jpg)
 
 ## What is Binary Search?
 
