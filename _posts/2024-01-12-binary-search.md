@@ -1,17 +1,17 @@
 ---
 layout: post
 title: Binary Search 👋
-description: Binary Search Implemantation
+date: 2024-01-12 03:00:00 +0900
+description: Binary Search Implementation
 categories: [Data Structures and Algorithms]
 tags: [blog, coding, computer-science , notes, computer, data-structures-and-algorithms-for-coding-interview, data-structures,algorithms, interview, coding-interview, dsalgo, leetcode, gfg, geeksforgeeks, dsa, binary-search]
+math: false
+mermaid: false
 image:
-  path: ./assets/binary_search.jpg
+  path: https://github.com/rahulkumarsahu/rahulkumarsahu.github.io/blob/main/assets/binary_search.jpg
   width: 660
   height: 132
   alt: Binary Search
-published: true
-sitemap: true
-pin: false
 ---
 
 # Problem 1: Binary Search Algorithm
@@ -160,8 +160,8 @@ public class Application {
 
 Problem Statement :- [**First Bad Version**](https://leetcode.com/problems/first-bad-version/description/)
 
-* For this question we have given a number n which denotes how many commits has been made and there is one faulty commit present in between 1 to n commits so we have to find that fault commit and one method isBadVersion() is given which returns whether version is bad version.
-* For Solution we have define our search space 1 to n and applying binary search according to below code if it is bad version then we are making **end = mid** why? because that **mid** can be the starting point of bad version or it is before that so for that reaseon we are doing this and if it is not a bad version then **start = mid + 1** because if **mid** is not a bad version then there is a possibility after mid only fault commit will be present.
+* For this question we have given a number n which denotes how many commits have been made and there is one faulty commit present in between 1 to n commits so we have to find that fault commit and one method isBadVersion() is given which returns whether version is bad version.
+* For Solution we have defined our search space 1 to n and applied binary search according to the below code if it is a bad version then we are making **end = mid** why? because that **mid** can be the starting point of a bad version or it is before that so for that reason we are doing this and if it is not a bad version then **start = mid + 1** because if **mid** is not a bad version then there is a possibility after mid only fault commit will be present.
 
 ```java
 public class Solution extends VersionControl {
@@ -277,7 +277,7 @@ public class FirstAndLastPosition {
 
             if(nums[midIndex] == target) {
                 ans = midIndex;
-                // here we are looking for last occurrence, and obviously we will find this  in right side of mid-value so updating
+                //Here we are looking for the last occurrence, and obviously, we will find this  on right side of mid-value so updating
                 startIndex = midIndex + 1;
             } else if(nums[midIndex] < target) {
                 startIndex = midIndex + 1;
@@ -300,7 +300,7 @@ public class FirstAndLastPosition {
 
             if(nums[midIndex] == target) {
                 ans = midIndex;
-                // here we are looking for first occurrence, and obviously we will find this  in left side of mid-value so updating
+                //Here we are looking for the first occurrence, and obviously, we will find this  on left side of mid-value so updating
                 endIndex = midIndex - 1;
             } else if(nums[midIndex] < target) {
                 startIndex = midIndex + 1;
@@ -333,24 +333,24 @@ public class FindPivotElement {
     }
 
     /**
-     * here, from input we can figure out few points
-     * we have two-part of increasing array one is 5,6,7 and 0,1,2,3,4, so we have to find 0 index value as output,
-     * so we will calculate the mid-value first now we have to figure out in which part my mid-index is existed
-     * if it is in second part then my pivot element will be mid or in left side of mid, end = mid;
-     * if it is in first part then my pivot element will be in right side start = mid + 1
+     * here, from the input we can figure out a few points
+     * We have two-part of increasing arrays one is 5,6,7 and 0,1,2,3,4, so we have to find the 0 index value as output,
+     * so we will calculate the mid-value first now we have to figure out in which part my mid-index exists
+     * if it is in the second part then my pivot element will be mid or on the left side of mid, end = mid;
+     * if it is in the first part then my pivot element will be in the right side start = mid + 1
      * so to check the part of the array we can check this condition arr[mid] > arr[0]
-     * if above condition is true that means it lying in first part
-     * if mid-part is existed in second part then above condition will never be true because it is rotated sorted array
+     * if the above condition is true that means it lying in the first part
+     * if mid-part has existed in the second part then the above condition will never be true because it is rotated sorted array
      */
     public static int findPivotElement(int[] nums) {
         int startIndex = 0;
         int endIndex = nums.length - 1;
-        // here we are iterating till < because when start become y and end become y which is already calculated will
+        //Here we are iterating till < because when start becomes y and end becomes y which is already calculated will
         // become infinite so removing =
         while(startIndex < endIndex) {
 
             int midIndex = startIndex + (endIndex - startIndex) / 2;
-            // checking last element and first element greater to find the right side to search
+            // checking the last element and first element greater to find the right side to search
             // if issue comes remove nums[midIndex] >= nums[nums.length-1]
             if(nums[midIndex] >= nums[nums.length - 1] && nums[midIndex] >= nums[0]) {
                 startIndex = midIndex + 1;
@@ -365,12 +365,12 @@ public class FindPivotElement {
     public static int findPivotElementWithDuplicates(int[] nums) {
         int startIndex = 0;
         int endIndex = nums.length - 1;
-        // here we are iterating till < because when start become y and end become y which is already calculated will
+        //Here we are iterating till < because when start becomes y and end becomes y which is already calculated will
         // become infinite so removing =
         while(startIndex < endIndex) {
 
             int midIndex = startIndex + (endIndex - startIndex) / 2;
-            // checking last element and first element greater to find the right side to search
+            // checking the last element and first element greater to find the right side to search
             // if issue comes remove nums[midIndex] >= nums[nums.length-1]
             if(nums[midIndex] >= nums[nums.length - 1] && nums[midIndex] >= nums[0]) {
                 startIndex = midIndex + 1;
@@ -379,11 +379,11 @@ public class FindPivotElement {
             }
 
 
-             // So here, suppose we have duplicate array so what we have to do if we find duplicates we have to skip that
-             // so how we can skip the duplicates by increasing start and decreasing end
-             // but what if startIndex and endIndex itself is pivot element so before that we will check condition
-            // if startIndex is pivot element then previous value will be greater than the current start index, we have to move towards right to start++
-            // if endIndex is pivot element then next value should be greater, and we have to move left side so moving end --
+             // So here, suppose we have a duplicate array so what do we have to do if we find duplicates we have to skip that
+             //So how we can skip the duplicates by increasing the start and decreasing the end
+             //But what if startIndex and endIndex itself are pivot elements so before that we will check the condition
+            //If startIndex is the pivot element then the previous value will be greater than the current start index, we have to move towards the right to start++
+            //If endIndex is the pivot element then the next value should be greater, and we have to move the left side so moving end --
 
             if(nums[midIndex] == nums[startIndex] && nums[midIndex] == nums[endIndex]) {
                
@@ -407,9 +407,9 @@ public class FindPivotElement {
 ```
 
 ### Question 5
-Problem Statement :-
+Problem Statement:-
 
-**Given an ascending sorted rotated array arr of distinct integers of size N. The array is right rotated K times. Your task is to find the value of K.** <br>
+**Given an ascending sorted rotated array arr of distinct integers of size N. The array is right-rotated K times. Your task is to find the value of K.** <br>
 **Constraints** <br>
 1 <= N <=10^5 <br>
 1 <= arr[i] <= 10^7 <br>
@@ -421,10 +421,10 @@ Problem Statement :-
 
 **Solution** :-
 
-**so here code will be same as pivot element but to find how many times it is rotated we have to get that pivot index and that only will be the count of rotation.**
+**So here code will be the same as the pivot element but to find how many times it is rotated we have to get that pivot index and that only will be the count of rotation.**
 
 ### Question 6
-Problem Statement :-
+Problem Statement:-
 
 **Suppose an array of length n sorted in ascending order is rotated between 1 and n times. <br>
 2. Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]]. <br>
@@ -447,7 +447,7 @@ nums is sorted and rotated between 1 and n times. <br>
 **Here also to find the minimum element so same pivot element logic we can use here.**
 
 ### Question 7
-Problem Statement :-
+Problem Statement:-
 **Given a sorted array containing only 0s and 1s, find the transition point. Transition Point is defined as 1's starting point. If there is no transition point, return -1.** <br>
 **Constraints** <br>
 1 <= N <= 500000 <br>
@@ -496,9 +496,9 @@ public class FindTransitionPoint {
 ```
 
 ### Question 8 
-Problem Statement :- 
+Problem Statement:- 
 
-**There is an integer array nums sorted in ascending order (with distinct values).nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].Given the array nums after the rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.You must write an algorithm with O(log n) runtime complexity.**
+**There is an integer array nums sorted in ascending order (with distinct values).nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2]. Given the array nums after the rotation and an integer target, return the index of the target if it is in nums, or -1 if it is not in nums. You must write an algorithm with O(log n) runtime complexity.**
 **Constraints**<br>
 1 <= nums.length <= 5000<br>
 -10^4 <= nums[i] <= 10^4<br>
@@ -524,9 +524,9 @@ public class SearchRotatedArray {
     }
 
     /**
-     * To search in rotated array first we have to find PIVOT element in this example {5, 6, 7, 0, 1, 2, 3, 4} pivot element is 0
-     * and after finding PIVOT element we can say that as array is sorted and rotated so searching element will be lying in between
-     * pivot to endIndex or pivot to startIndex , so after that we can apply binary search easily.
+     * To search in a rotated array first we have to find the PIVOT element in this example {5, 6, 7, 0, 1, 2, 3, 4} pivot element is 0
+     * and after finding the PIVOT element we can say that as the array is sorted and rotated so searching element will be lying in between
+     * pivot to endIndex or pivot to startIndex, so after that, we can apply binary search easily.
      */
     private static int search(int[] nums, int target) {
 
@@ -556,12 +556,12 @@ public class SearchRotatedArray {
     public static int findPivotElement(int[] nums) {
         int startIndex = 0;
         int endIndex = nums.length - 1;
-        // here we are iterating till < because when start become y and end become y which is already calculated will
+        //Here we are iterating till < because when start becomes y and end becomes y which is already calculated will
         // become infinite so removing =
         while(startIndex < endIndex) {
 
             int midIndex = startIndex + (endIndex - startIndex) / 2;
-            // checking last element and first element greater to find the right side to search
+            // checking the last element and first element greater to find the right side to search
             // if issue comes remove nums[midIndex] >= nums[nums.length-1]
             if(nums[midIndex] >= nums[nums.length - 1] && nums[midIndex] >= nums[0]) {
                 startIndex = midIndex + 1;
@@ -588,11 +588,11 @@ Both of them are less than 20.<br>
 **Input**: array[] = {10, 20, 15, 2, 23, 90, 67}<br>
 **Output**: 20 or 90<br>
 The element 20 has neighbors 10 and 15, <br>
-both of them are less than 20, similarly 90 has neighbors 23 and 67.<br>
+both of them are less than 20, similarly, 90 has neighbors 23 and 67.<br>
 
-**Following corner cases give a better idea about the problem.**
-If the input array is sorted in strictly increasing order, the last element is always a peak element. For example, 50 is the peak element in {10, 20, 30, 40, 50}.<br>
-If the input array is sorted in strictly decreasing order, the first element is always a peak element. 100 is the peak element in {100, 80, 60, 50, 20}.<br>
+**The following corner cases give a better idea about the problem.**
+If the input array is sorted in a strictly increasing order, the last element is always a peak element. For example, 50 is the peak element in {10, 20, 30, 40, 50}.<br>
+If the input array is sorted in a strictly decreasing order, the first element is always a peak element. 100 is the peak element in {100, 80, 60, 50, 20}.<br>
 If all elements of the input array are the same, every element is a peak element.<br>
 
 ```java
@@ -620,13 +620,13 @@ public class PeakElement {
             if (arr.get(mid - 1) < arr.get(mid) && arr.get(mid) > arr.get(mid + 1))
                 return mid;
 
-            // If we are in the left:
+            // If we are on the left:
             //This means we are in the left half and we should eliminate it as our peak element appears on the right.
             if (arr.get(mid) > arr.get(mid - 1)) low = mid + 1;
 
             // If we are in the right:
             // Or, arr[mid] is a common point:
-            // we are in the right half and we should eliminate it as our peak element appears on the left.
+            //We are in the right half and we should eliminate it as our peak element appears on the left.
             else high = mid - 1;
         }
         // Dummy return statement
@@ -647,7 +647,7 @@ public class PeakElement {
 
 Problem Statement
 
-**Given an array of integers sorted in ascending order, and a target value, find the element in the array that has minimum difference with the target value.** <br>
+**Given an array of integers sorted in ascending order and a target value, find the element in the array that has minimum difference with the target value.** <br>
 Example 1: Input: a[] = [2, 5, 10, 12, 15], target = 6 <br>
 Output: 5<br>
 Explanation: The difference between the target value '6' and '5' is the minimum.<br>
@@ -666,10 +666,10 @@ public class MinimumDifference {
         System.out.println(output);
     }
 
-    // so always keep in mind minimum difference will be exact in the position where target exist because it will be 0 at that point
-    // if key does not exist then when binary search loop will break then startIndex and endIndex will be always the closest element present in array
-    private static int findMinimumDifference(int[] sortedArray, int target) {
-        // array index start from 0 and end index will be one less than length;
+    //So always keep in mind minimum difference will be exact in the position where the target exists because it will be 0 at that point
+    //If key does not exist then when the binary search loop breaks then startIndex and endIndex will be always the closest elements present in the array
+    private static int findMinimumDifference(int[] sorted array, int target) {
+        // array index starts from 0 and the end index will be one less than length;
         int startIndex = 0;
         int endIndex = sortedArray.length - 1;
         // to find the mid-value
@@ -681,10 +681,10 @@ public class MinimumDifference {
             if(sortedArray[midIndex] == target) {
                 return midIndex;
             } else if (sortedArray[midIndex] < target) {
-                // if mid-element is < then increase min because it will be in right side
+                //If mid-element is < then increase min because it will be on right side
                 startIndex = midIndex + 1;
             } else {
-                // if mid-element is > then reduce max because it will be in left side
+                //If mid-element is > then reduce max because it will be on left side
                 endIndex = midIndex - 1;
             }
 
@@ -703,15 +703,15 @@ public class MinimumDifference {
 
 Problem Statement
 
-**Given an array which is sorted, but after sorting some elements are moved to either of the adjacent positions, i.e., arr[i] may be present at arr[i+1] or arr[i-1]. Write an efficient function to search an element in this array. Basically the element arr[i] can only be swapped with either arr[i+1] or arr[i-1]. For example, consider the array {2, 3, 10, 4, 40}, 4 is moved to the next position and 10 is moved to the previous position.**<br>
+**Given an array that is sorted, but after sorting some elements are moved to either of the adjacent positions, i.e., arr[i] may be present at arr[i+1] or arr[i-1]. Write an efficient function to search an element in this array. The element arr[i] can only be swapped with either arr[i+1] or arr[i-1]. For example, consider the array {2, 3, 10, 4, 40}, 4 is moved to the next position and 10 is moved to the previous position.**<br>
 **Example** :  <br>
 **Input**: arr[] =  {10, 3, 40, 20, 50, 80, 70}, key = 40 <br>
 **Output**: 2 <br>
-Output is index of 40 in given array <br>
+Output is an index of 40 in given array <br>
 
 **Input**: arr[] =  {10, 3, 40, 20, 50, 80, 70}, key = 90 <br>
 **Output**: -1 <br>
--1 is returned to indicate element is not present <br>
+-1 is returned to indicate the element is not present <br>
 
 ```java
 public class NearlySortedArray {
@@ -723,8 +723,8 @@ public class NearlySortedArray {
         System.out.println(output);
     }
 
-    // nearly sorted means 10 30 20
-    // so in nearly sorted array the value can be possible in + 1 or - 1 so searching accordingly
+    //Nearly sorted means 10 30 20
+    // so in a nearly sorted array, the value can be possible in + 1 or - 1 so searching accordingly
     // as we are checking + 1 and - 1 so adding + 2 and - 2 as it is already checked
     public static int searchInNearlySortedArray(int[] arr, int target) {
 
@@ -853,14 +853,14 @@ public class CheckIfNAndItsDoubleExist {
         boolean result;
 
         for(int i = 0; i < arr.length; i++) {
-            /** if current index value is negative then condition will be  value % 2 == 0, and it is < 0 then its division by 2 can be there, how? because why checking mod because we want two multiple and 2 multiple is always even and lets take one example
-             -20, -10, -8, 15, 12 so here what will happen -20 will come first
+            /** If the current index value is negative then the condition will be  value % 2 == 0, and if it is < 0 then its division by 2 can be there, how? why checking mod we want two multiple and 2 multiple is always even lets take one example
+             -20, -10, -8, 15, 12 so here is what will happen -20 will come first
              then if -20 mod 2 == 0 and -20 < 0 , then only we will get it the arr[j] in upcoming indexes which will made the arr[i] = 2*arr[j]
-             why because for negate sorted order bigger one come first and then smaller negative so if arr[i] == -20 then we have to look for 
-             -10 in upcoming ans if it is 20 then upcoming we will look for 40
+             why because for negate sorted order bigger one comes first and then the smaller negative so if arr[i] == -20 then we have to look for 
+             -10 in upcoming and if it is 20 then we will look for 40
              
             ------
-             otherwise if it is positive then its double will be there in upcoming indexes. because array is sorted.**/
+             otherwise, if it is positive then its double will be there in upcoming indexes. because the array is sorted.**/
             if(arr[i] % 2 == 0 && arr[i] < 0) {
                 result = binarySearch(arr, i + 1, arr.length - 1, arr[i]/2);
             } else {
@@ -946,9 +946,9 @@ class Solution {
 # Medium Level Binary Search Questions
 
 ### Question 1
-Problem Statement :-
+Problem Statement:-
 
-**Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The result should also be sorted in ascending order.An integer a is closer to x than an integer b if:**<br>
+**Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The results should also be sorted in ascending order. An integer a is closer to x than an integer b if:**<br>
        |a - x| < |b - x|, or<br>
        |a - x| == |b - x| and a < b<br>
 **Constraints** <br>
@@ -982,20 +982,20 @@ public class FindKthClosestElement {
     }
 
     /**
-     * Here we have to find kth closest element we have given a K ex. 3 and target is 45
-     * for the array = [10,20,30,40,50] so we have to find 3 closest element to 45
+     * Here we have to find the kth closest element we have given a K ex. 3 and the target is 45
+     * for the array = [10,20,30,40,50] so we have to find 3 closest elements to 45
      * so, we will apply binary search to reach the closest position of the target and
      * then we have startIndex and endIndex and we will try to find kth closest element
      * so for that we should have to take two pointers left and right,
      * 
-     * so left we will assign to endIndex and right we will assign it to startIndex
-     * why? because binary search breaks when endIndex cross startIndex so end will be left side and 
-     * start will be right side.
+     * so left we will assign it to endIndex and right we will assign it to startIndex
+     * why? because binary search breaks when endIndex crosses startIndex so the end will be the left side and 
+     * start will be the right side.
      * 
      * and we have to handle some corner cases like 
      * if left crosses 0 index and right crosses out of length index
      * and k > 0 so till then loop will continue and,
-     * we will take difference and in output list we will add the smaller value and move the pointer accordingly
+     * we will take the difference and in the output list we will add the smaller value and move the pointer accordingly
      * 
      * and suppose one case if left crosses 0 index but k is still > 0 then we have to add all right side element
      * right?
@@ -1094,7 +1094,7 @@ public class FindElementAppearsOne {
         if(a.length == 0) return -1;
         else if(a.length == 1) return a[0];
 
-        //corner cases where unique element will be at the start or end
+        //corner cases where a unique element will be at the start or end
         if(a[0] != a[1]) {
             return a[0];
         }
@@ -1108,13 +1108,13 @@ public class FindElementAppearsOne {
         while(l <= h){
             int m = (l + h) / 2;
 
-            //when unique element is in between
+            //when a unique element is in between
             if(a[m] != a[m-1] && a[m] != a[m+1]){
                 return a[m];
             }
-            //if unique element is not crossed,
-            //a 'm' is odd, then prev element will always be same
-            //b 'm' is even, then next element will always be same
+            //if the unique element is not crossed,
+            //a 'm' is odd, then prev element will always be the same
+            //b 'm' is even, then the next element will always be the same
             if((m % 2 == 1 && a[m] == a[m-1]) || (m % 2 == 0 && a[m] == a[m+1])){
                 l = m + 1;
             }else{
@@ -1128,7 +1128,7 @@ public class FindElementAppearsOne {
 ```
 
 ### Question 3
-Problem Statement :-
+Problem Statement:-
 
 **Given a sorted array of size N. Count the number of distinct absolute values present in the array.** <br>
 **Constraints** <br>
