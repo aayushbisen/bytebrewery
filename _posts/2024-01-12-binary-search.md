@@ -7,15 +7,10 @@ categories: [Data Structures and Algorithms]
 tags: [blog, coding, computer-science , notes, computer, data-structures-and-algorithms-for-coding-interview, data-structures,algorithms, interview, coding-interview, dsalgo, leetcode, gfg, geeksforgeeks, dsa, binary-search]
 math: false
 mermaid: false
-image:
-  path: https://github.com/rahulkumarsahu/rahulkumarsahu.github.io/blob/main/assets/binary_search.jpg
-  width: 660
-  height: 132
-  alt: Binary Search
 ---
 
 # Problem 1: Binary Search Algorithm
-<!-- ![udp segment](/assets/binary_search.jpg) -->
+![udp segment](https://github.com/rahulkumarsahu/rahulkumarsahu.github.io/blob/main/assets/binary_search.jpg)
 
 ## What is Binary Search?
 
