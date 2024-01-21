@@ -1,0 +1,176 @@
+/*
+ * The main dark mode styles
+ */
+
+@mixin dark-scheme {
+  /* Rahul custom color */
+  --color-back-primary: hsla(221, 39%, 11%, 1);
+  --color-back-secondary: hsla(221, 39%, 15%, 1);
+  --color-back-tertier: hsla(221, 39%, 20%, 1);
+  --color-back-subtle: hsla(221, 39%, 25%, 1);
+  --color-fore-primary: hsla(214, 32%, 91%, 1);//hsla(172, 67%, 70%, 1);
+  --color-fore-secondary: hsla(214, 20%, 69%, 1);
+  --color-fore-subtle: hsla(214, 20%, 60%, 1);
+  --color-accent: hsla(172, 67%, 70%, 1);
+
+  /* Framework color */
+  --body-bg: var(--main-wrapper-bg);
+  --mask-bg: rgb(68, 69, 70);
+  --main-wrapper-bg: var(--color-back-primary);//rgb(27, 27, 30);
+  --main-border-color: var(--color-accent);//rgb(44, 45, 45);
+
+  /* Common color */
+  --text-color: var(--color-fore-secondary);//rgb(175, 176, 177);
+  --text-muted-color: var(--color-fore-subtle);//rgb(107, 116, 124);
+  --heading-color: var(--color-fore-primary);//#cccccc;
+  --blockquote-border-color: var(--color-accent);//rgb(66, 66, 66);
+  --blockquote-text-color: var(--color-fore-secondary);////rgb(117, 117, 117);
+  --blockquote-bg-color: var(--color-back-secondary);
+  --link-color: var(--color-fore-primary);//var(--color-accent);//rgb(138, 180, 248);
+  --link-underline-color: var(--color-fore-subtle);//rgb(82, 108, 150);
+  --button-bg: var(--color-back-primary);//rgb(39, 40, 43);
+  --btn-border-color: var(--color-back-subtle);//rgb(63, 65, 68);
+  --btn-backtotop-color:  var(--color-fore-secondary);//var(--text-color);
+  --btn-backtotop-border-color: var(--color-back-subtle);//var(--btn-border-color);
+  --btn-box-shadow: var(--color-back-secondary);//var(--main-wrapper-bg);
+  --card-header-bg: var(--color-back-tertier);//rgb(51, 50, 50);
+  --label-color: var(--color-fore-primary);//rgb(108, 117, 125);
+  --checkbox-color: var(--color-back-secondary);//rgb(118 120 121);
+  --checkbox-checked-color: var(--color-accent);//var(--link-color);
+
+  /* Sidebar */
+  --sidebar-bg: var(--color-back-secondary);//radial-gradient(circle, #242424 0%, #1d1f27 100%);
+  --sidebar-muted-color: var(--color-fore-subtle);//#6d6c6b;
+  --sidebar-active-color: var(--color-accent);//rgb(255 255 255 / 80%);
+  --nav-cursor-color: var(--color-accent);//rgb(183, 182, 182);
+  --sidebar-btn-bg: var(--color-back-primary);//rgb(117 116 116 / 20%);
+
+  /* Topbar */
+  --topbar-text-color: var(--color-fore-secondary);//var(--text-color);
+  --topbar-wrapper-bg: var(--color-back-secondary);//rgb(39, 40, 43);
+  --search-wrapper-bg: var(--color-back-primary);//rgb(34, 34, 39);
+  --search-wrapper-border-color: var(--color-back-primary);//rgb(34, 34, 39);
+  --search-icon-color: var(--color-fore-subtle);//rgb(100, 102, 105);
+  --input-focus-border-color: var(--btn-border-color);//rgb(112, 114, 115);
+
+  /* Home page */
+  --post-list-text-color: var(--color-fore-secondary);//rgb(175, 176, 177);
+  --btn-patinator-text-color: var(--color-fore-secondary);//var(--text-color);
+  --btn-paginator-hover-color: var(--sidebar-bg);//rgb(64, 65, 66);
+  --btn-paginator-border-color: var(--sidebar-bg);//var(--btn-border-color);
+  --btn-text-color: var(--color-fore-subtle);//var(--text-color);
+  --pin-bg: var(--color-back-secondary);//rgb(34 35 37);
+  --pin-color: var(--color-fore-subtle);//inherit;
+
+  /* Posts */
+  --toc-highlight: var(--color-accent);//rgb(116, 178, 243);
+  --tag-bg: var(--color-back-secondary);//rgb(41, 40, 40);
+  --tag-hover: var(--color-back-tertier);//rgb(43, 56, 62);
+  --tb-odd-bg: var(--color-back-tertier);//rgba(42, 47, 53, 0.52); /* odd rows of the posts' table */
+  --tb-even-bg: var(--color-back-secondary);//rgb(31, 31, 34); /* even rows of the posts' table */
+  --tb-border-color: var(--tb-odd-bg);
+  --footnote-target-bg: var(--color-back-secondary);//rgb(63, 81, 181);
+  --btn-share-color: var(--color-back-subtle);//#6c757d;
+  --btn-share-hover-color: var(--link-color);//#bfc1ca;
+  --relate-post-date: var(--color-fore-subtle);//var(--text-muted-color);
+  --card-bg: var(--color-back-secondary);//rgb(39, 40, 43);
+  --card-border-color: var(--btn-border-color);//rgb(53, 53, 60);
+  --card-box-shadow: var(--color-back-secondary);//var(--main-wrapper-bg);
+  --preview-img-bg: radial-gradient(circle, rgb(22 22 24) 0%, rgb(32 32 32) 100%);
+  --kbd-wrap-color: var(--color-back-secondary);//#6a6a6a;
+  --kbd-text-color: var(--text-color);//#d3d3d3;
+  --kbd-bg-color: var(--color-back-primary);//#242424;
+  --prompt-text-color: var(--color-fore-secondary);//rgb(216 212 212 / 75%);
+  --prompt-tip-bg: rgba(77, 187, 95, 0.2);
+  --prompt-tip-icon-color: rgb(5 223 5 / 68%);
+  --prompt-info-bg: rgb(7 59 104 / 80%);
+  --prompt-info-icon-color: #0075d1;
+  --prompt-warning-bg: rgb(90 69 3 / 95%);
+  --prompt-warning-icon-color: rgb(255 165 0 / 80%);
+  --prompt-danger-bg: rgb(86 28 8 / 80%);
+  --prompt-danger-icon-color: #cd0202;
+
+  /* tags */
+  --tag-border: var(--color-back-subtle);//rgb(59, 79, 88);
+  --tag-shadow: var(--color-back-secondary);//rgb(32, 33, 33);
+  --search-tag-bg: var(--color-back-secondary);//var(--tag-bg);
+  --dash-color: var(--color-fore-subtle);//rgb(63, 65, 68);
+
+  /* categories */
+  --categories-border: var(--color-back-subtle);//rgb(64, 66, 69);
+  --categories-hover-bg: var(--btn-border-color);//rgb(73, 75, 76);
+  --categories-icon-hover-color: var(--color-fore-primary);//white;
+
+  /* archives */
+  --timeline-node-bg: var(--color-back-tertier);//rgb(150, 152, 156);
+  --timeline-color: var(--color-back-subtle);//rgb(63, 65, 68);
+  --timeline-year-dot-color: var(--color-back-secondary);//var(--timeline-color);
+
+  .post img[data-src] {
+    filter: brightness(95%);
+  }
+
+  hr {
+    border-color: var(--main-border-color);
+  }
+
+  /* posts' toc, override BS */
+  nav[data-toggle=toc] .nav-link.active,
+  nav[data-toggle=toc] .nav-link.active:focus,
+  nav[data-toggle=toc] .nav-link.active:hover,
+  nav[data-toggle=toc] .nav > li > a:focus,
+  nav[data-toggle=toc] .nav > li > a:hover {
+    color: var(--toc-highlight) !important;
+    border-left-color: var(--toc-highlight) !important;
+  }
+
+  /* categories */
+  .categories.card,
+  .list-group-item {
+    background-color: var(--card-bg);
+  }
+
+  .categories {
+    .card-header {
+      background-color: var(--card-header-bg);
+    }
+
+    .list-group-item {
+      border-left: none;
+      border-right: none;
+      padding-left: 2rem;
+      border-color: var(--categories-border);
+
+      &:last-child {
+        border-bottom-color: var(--card-bg);
+      }
+    }
+  }
+
+  #archives li:nth-child(odd) {
+    background-image:
+      // linear-gradient(
+      //   to left,
+      //   rgb(26, 26, 30),
+      //   rgb(39, 39, 45),
+      //   rgb(39, 39, 45),
+      //   rgb(39, 39, 45),
+      //   rgb(26, 26, 30)
+      // );
+      linear-gradient(
+        to left,
+        var(--color-back-primary),
+        var(--color-back-secondary),
+        var(--color-back-secondary),
+        var(--color-back-secondary),
+        var(--color-back-primary)
+      );
+  }
+
+  color-scheme: dark;
+
+  #disqus_thread {
+    color-scheme: none;
+  }
+
+} /* dark-scheme */

@@ -1,0 +1,23 @@
+/*
+  Appending custom SCSS variables will override the default ones in `_sass/addon/variables.scsss`
+*/
+$tab-count: 6 - 2 + 1; // 6 tabs + 1 home - 2 hidden tabs
+
+#bigavatar {
+  
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid rgba(222, 222, 222, 0.7);
+    overflow: hidden;
+    transform: translateZ(0); /* fixed the zoom in Safari */
+    -webkit-transition: border-color 0.35s ease-in-out;
+    -moz-transition: border-color 0.35s ease-in-out;
+    transition: border-color 0.35s ease-in-out;
+
+    &:hover {
+      border-color: white;
+    }
+    
+} /* #avatar */
