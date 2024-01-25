@@ -1129,18 +1129,469 @@ public class FindElementAppearsOne {
 
 ### Question 3
 Problem Statement :-
+**You are given an array ‘pages’ of integer numbers. In this array, the ‘pages[i]’ represents the number of pages in the ‘i-th’ book. There are ‘m’ number of students, and the task is to allocate all the books to the students.** 
 
-**Given a sorted array of size N. Count the number of distinct absolute values present in the array.** <br>
-**Constraints** <br>
-1 <= N <= 10^5 <br>
--10^8 <= Arr[i] <= 10^8 <br>
-The array may contain duplicates <br>
-**Sample Input** <br>
-6  <br>
--3 -2 0 3 4 5 <br>
-**Sample Output** <br>
-5 <br>
+Allocate books in a way such that:
+
+Each student gets at least one book. <br>
+Each book should be allocated to a student. <br>
+Book allocation should be in a contiguous manner. <br>
+ 
+You have to allocate the books to ‘m’ students such that the maximum number of pages assigned to a student is minimum.
+
+**Input** <br>
+Number of books = 4 and Number of students = 2
+
+pages[] = { 10,20,30,40}
+
+**Output** <br>
+60
+
+**Brute Force**
+```java
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class BookAllocation {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int[] arr = new int[scan.nextInt()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = scan.nextInt();
+        }
+        int m = scan.nextInt();
+
+        System.out.println(findPages(arr, m));
+
+
+        scan.close();
+    }
+
+    public static int findPages(int[] arr, int m) {
+        if (m > arr.length) {
+            return -1;
+        }
+
+        int low = Arrays.stream(arr).max().getAsInt();
+        int high = Arrays.stream(arr).sum();
+        for (int i = low; i <= high; i++) {
+            if (countStudents(arr, i) == m) {
+                return i;
+            }
+        }
+
+
+        return low;
+
+
+    }
+
+    private static int countStudents(int[] arr, int i) {
+        int sum = 0;
+        int student = 1;
+        for (int j = 0; j < arr.length; j++) {
+            if (sum + arr[j] <= i) {
+                sum += arr[j];
+            } else {
+                student++;
+                sum = arr[j];
+            }
+        }
+        return student;
+    }
+
+}
+```
+
+**Optimal Approach**
+```java
+import java.util.Arrays;
+import java.util.OptionalInt;
+
+//https://www.codingninjas.com/codestudio/problem-details/allocate-books_1090540
+//https://www.codingninjas.com/codestudio/problems/painter-s-partition-problem_1089557
+public class BookAllocationProblem {
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{1, 2, 3, 4};
+        int numberOfStudent = 2;
+        // boolean status = isPossibleSolution(arr, 75, numberOfStudent);
+        int output = bookPartition(arr, numberOfStudent);
+        System.out.println("The Output is :- " + output);
+    }
+
+    private static int bookPartition(int[] arr, int numberOfStudent) {
+        // here possible output can be min value from array if arr.length == number of student,
+        // but it is not sorted so taking 0
+        int startIndex = 0;
+        // here possible output can be sum of all value from array if arr.length == 1 student,
+        int endIndex = Arrays.stream(arr).sum();
+        //output int output = -1;
+        // handling corner case
+        if(arr.length == numberOfStudent) {
+            OptionalInt maxValue = Arrays.stream(arr).max();
+            if(maxValue.isPresent()) {
+                return maxValue.getAsInt();
+            }
+        } else if(numberOfStudent == 1) {
+            return endIndex;
+        }
+        // we created search space for binary search from startIndex to endIndex
+        while (startIndex <= endIndex) {
+            // getting mid-index to find the solution
+            int midIndex = startIndex + (endIndex - startIndex) / 2;
+
+            if(isPossibleSolution(arr, midIndex, numberOfStudent)) {
+                //output = midIndex;
+                // if midIndex is possible solution then output must be lesser than the midIndex
+                endIndex = midIndex - 1;
+            } else {
+                // if midIndex is not possible solution then output must be greater than the midIndex
+                startIndex = midIndex + 1;
+            }
+        }
+        // return output;
+        return startIndex;
+    }
+
+    private static boolean isPossibleSolution(int[] arr, int midIndex, int numberOfStudent) {
+
+        int student = numberOfStudent;
+        int index = 0;
+        int sum = 0;
+        // here checking index must be less than length
+        while (index < arr.length) {
+            // sum of array element
+            sum = sum + arr[index];
+            if(sum > midIndex) {
+                // find the first partition for the student
+                sum = 0;
+                student -= 1;
+            } else {
+                index++;
+            }
+           // checking if the partition completed among student still we have book left
+            // here when arr element itself is greater than midIndex value than obviously it will be false
+            if(student == 0 && index < arr.length) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+/**
+ *         int studentCount = 1;
+ *         int pageSum = 0;
+ *
+ *         for (int element : arr) {
+ *             if (pageSum + element > midIndex) {
+ *                 pageSum = pageSum + element;
+ *             } else {
+ *                 studentCount++;
+ *                 if (studentCount > numberOfStudent || element > midIndex) {
+ *                     return false;
+ *                 }
+ *                 pageSum = element;
+ *             }
+ *         }
+ */
+```
+
+### Question 4
+Problem Statement :-
+
+**Given an array/list of length ‘n’, where the array/list represents the boards and each element of the given array/list represents the length of each board. Some ‘k’ numbers of painters are available to paint these boards. Consider that each unit of a board takes 1 unit of time to paint.**
+
+**You are supposed to return the area of the minimum time to get this job done of painting all the ‘n’ boards under a constraint that any painter will only paint the continuous sections of boards.**
+
+**Example** : <br>
+Input: arr = [2, 1, 5, 6, 2, 3], k = 2
+
+**Output**: 11
+
+**Explanation**: <br>
+**First painter can paint boards 1 to 3 in 8 units of time and the second painter can paint boards 4-6 in 11 units of time. Thus both painters will paint all the boards in max(8,11) = 11 units of time. It can be shown that all the boards can't be painted in less than 11 units of time.**
+
+**Solution**:-
+The Solution is similar to Book Allocation Algorithm.
+
+### Question 5:-
+Problem Statement :-
+
+**Lumberjack Mirko needs to chop down M metres of wood. It is an easy job for him since he has a nifty new woodcutting machine that can take down forests like wildfire. However, Mirko is only allowed to cut a single row of trees.**
+
+**Mirko‟s machine works as follows: Mirko sets a height parameter H (in metres), and the machine raises a giant sawblade to that height and cuts off all tree parts higher than H (of course, trees not higher than H meters remain intact). Mirko then takes the parts that were cut off. For example, if the tree row contains trees with heights of 20, 15, 10, and 17 metres, and Mirko raises his sawblade to 15 metres, the remaining tree heights after cutting will be 15, 15, 10, and 15 metres, respectively, while Mirko will take 5 metres off the first tree and 2 metres off the fourth tree (7 metres of wood in total).**
+
+**Mirko is ecologically minded, so he doesn‟t want to cut off more wood than necessary. That‟s why he wants to set his sawblade as high as possible. Help Mirko find the maximum integer height of the sawblade that still allows him to cut off at least M metres of wood.**
+
+**Input** <br>
+**The first line of input contains two space-separated positive integers, N (the number of trees, 1 ≤ N ≤ 1 000 000) and M (Mirko‟s required wood amount, 1 ≤ M ≤ 2 000 000 000).**
+
+**The second line of input contains N space-separated positive integers less than 1 000 000 000, the heights of each tree (in metres). The sum of all heights will exceed M, thus Mirko will always be able to obtain the required amount of wood.**
+
+**Output** <br>
+The first and only line of output must contain the required height setting.
+
+**Example** <br>
+**Input**: <br>
+4 7
+20 15 10 17
+**Output**: <br>
+15 <br>
+
+**Input**: <br>
+5  <br>
+4 42 40 26 46 <br>
+**Output**: <br>
+36
 
 ```java
+import java.util.Arrays;
+import java.util.OptionalInt;
 
+public class SPOJEKOProblem {
+
+    public static void main(String[] args) {
+
+        int[] nums = new int[]{4, 42, 40, 26, 46};
+        int target = 20;
+        int output = ekoProblem( nums, target);
+        System.out.println("The output is :- " + output);
+
+    }
+
+    private static int ekoProblem(int[] nums, int target) {
+        int startIndex = 0;
+        int endIndex = 0;
+        OptionalInt maxValue = Arrays.stream(nums).max();
+        if(maxValue.isPresent()) {
+            endIndex = maxValue.getAsInt();
+        }
+
+        while (startIndex <= endIndex) {
+            int midIndex = startIndex + (endIndex - startIndex) / 2;
+            int returnValue = isPossibleSolution(nums, midIndex);
+            if(returnValue == target) {
+                return midIndex;
+            } else if(returnValue > target) {
+                startIndex = midIndex + 1;
+            } else {
+                endIndex = midIndex - 1;
+            }
+        }
+        return startIndex;
+    }
+
+    private static int isPossibleSolution(int[] nums, int midIndex) {
+
+        int sum = 0;
+
+        for(int data : nums) {
+            if (data >= midIndex) {
+                sum += (data - midIndex);
+            }
+        }
+        return sum;
+    }
+}
+```
+### Question 6
+Problem Statement :-
+
+Problem statement
+You are given an array 'arr' consisting of 'n' integers which denote the position of a stall.
+
+You are also given an integer 'k' which denotes the number of aggressive cows.
+
+You are given the task of assigning stalls to 'k' cows such that the minimum distance between any two of them is the maximum possible.
+
+Print the maximum possible minimum distance.
+
+Example: <br>
+Input: 'n' = 3, 'k' = 2 and 'arr' = {1, 2, 3}
+Output: 2
+
+Explanation: The maximum possible minimum distance will be 2 when 2 cows are placed at positions {1, 3}. Here distance between cows is 2.
+Detailed explanation ( Input/output format, Notes, Images )
+
+Sample Input 1 : <br>
+6 4 <br>
+0 3 4 7 10 9 <br>
+Sample Output 1 : <br>
+3
+
+Explanation to Sample Input 1 :
+The maximum possible minimum distance between any two cows will be 3 when 4 cows are placed at positions {0, 3, 7, 10}. Here distance between cows are 3, 4 and 3 respectively.
+
+Sample Input 2 : <br>
+5 2 <br>
+4 2 1 3 6 <br>
+
+Sample Output 2 : <br>
+5 <br>
+
+Expected time complexity:
+Can you solve this in O(n * log(n)) time complexity?
+
+
+Constraints : <br>
+2 <= 'n' <= 10 ^ 5 <br>
+2 <= 'k' <= n <br>
+0 <= 'arr[i]' <= 10 ^ 9 <br>
+Time Limit: 1 sec. <br>
+
+```java
+import java.util.Arrays;
+
+public class AggressiveCowsProblem {
+
+    public static void main(String[] args) {
+
+        int[] arr = new int[]{4,2,1,3,6};
+        int numberOfCows = 2;
+        int output = aggressiveCows(arr, numberOfCows);
+        System.out.println("The Output is :- " + output);
+    }
+
+    private static int aggressiveCows(int[] arr, int numberOfCows) {
+        Arrays.sort(arr);
+        // this is min value of search space
+        int startIndex = 0;
+        int endIndex =  arr[arr.length - 1];
+
+        // output
+        int output = -1;
+
+        while(startIndex <= endIndex) {
+            int midIndex = startIndex + (endIndex - startIndex) / 2;
+            // if it is a possible solution then for finding longest we will go right side
+            // because there is a chance we will find minimum distance as large as possible
+            if(isPossibleSolution(arr, midIndex, numberOfCows)) {
+                output = midIndex;
+                startIndex = midIndex + 1;
+            } else {
+                // if this is not a possible solution then that right side element will also not be possible solution
+                // so moving left side to find solution
+                endIndex = midIndex - 1;
+            }
+        }
+
+        return output;
+    }
+
+    private static boolean isPossibleSolution(int[] arr, int midIndex, int numberOfCows) {
+        // here starting point will be 0 always
+        int startPoint = arr[0];
+        // maintain counter to check number of cows assigned
+        int counter = 1;
+        for(int i = 1; i < arr.length; i++) {
+            // considering midIndex as max distance
+            // if diff of arr[i] - start point >= midIndex that means we got one position for cow for considered maximum distance as midIndex
+            // once we got distance C2 got placed then we will search place for C3, so we have to update the start point to C2 position
+            // and after that if we find the position for C3 also it's a possible solution else return false
+            if(Math.abs(arr[i] - startPoint) >= midIndex) {
+                        counter++;
+                        startPoint = arr[i];
+            }
+            if(counter == numberOfCows) return true;
+        }
+
+        return false;
+    }
+
+}
+```
+
+### Question 7
+Problem Statement :-
+
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+
+Return the minimum integer k such that she can eat all the bananas within h hours.
+
+Example 1:
+
+Input: piles = [3,6,7,11], h = 8 <br>
+Output: 4 <br>
+
+Example 2:
+
+Input: piles = [30,11,23,4,20], h = 5 <br>
+Output: 30 <br>
+
+Example 3:
+
+Input: piles = [30,11,23,4,20], h = 6 <br>
+Output: 23 <br>
+ 
+Constraints: <br>
+1 <= piles.length <= 104 <br>
+piles.length <= h <= 109 <br>
+1 <= piles[i] <= 109 <br>
+
+```java
+import java.util.Arrays;
+
+public class EatingBanana {
+
+    /**
+     * 3     6      7      11
+     * 8
+     * low -> 1 , high -> 11 , mid -> 6
+     * isPossible -> 6
+     * 3 6 7 11
+     * 1 1 2 2 -> 6h <= 8h possible solution return true;
+     */
+    public static void main(String[] args) {
+        int[] arr = new int[]{3, 6, 7, 11};
+        int hours = 8;
+        System.out.println(getMinimumRate(arr, hours));
+    }
+
+    private static Integer getMinimumRate(int[] arr, int hours) {
+        Arrays.sort(arr);
+        int low = arr[0];
+        int high = arr[arr.length - 1];
+
+        while (low <= high) {
+
+            int mid = (low + high) / 2;
+
+            if(isPossibleSolution(arr, hours, mid)) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+
+        }
+        return low;
+    }
+
+    /**
+     * 3 6 7 11
+     * 1 1 2 2 -> 6h <= 8h possible solution return true;
+     */
+    private static boolean isPossibleSolution(int[] arr, int hours, int mid) {
+        // speed = 0;
+        int speed = 0;
+
+        for(int data : arr) {
+            // if 3 / 6 , 6 / 6, ..... here if mid will be less than mid-element then speed becomes 0, and he will be able to eat in 1h -> so if we are getting 0 then checking condition and increasing speed
+            //                         here if mid will be more than mid-element then speed becomes like 11 / 4 -> 2
+            //                         here if mid will be equal to mid-element then speed becomes like 7/7 -> 1 so next if condition will break
+            speed += data / mid; // ->
+
+            if(data % mid != 0) speed++;
+        }
+
+        //if speed is less than the given h hours, We need to increase Speed,to increase speed we need to select lower value between low ---- > mid-1 as mid;
+        return speed <= hours;
+    }
+}
 ```
