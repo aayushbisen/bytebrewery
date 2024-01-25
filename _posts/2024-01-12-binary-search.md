@@ -1587,5 +1587,21 @@ public class EatingBanana {
         //if speed is less than the given h hours, We need to increase Speed,to increase speed we need to select lower value between low ---- > mid-1 as mid;
         return speed <= hours;
     }
+
+    /**
+     * for easy understanding solution
+    private static boolean isPossibleSolutionUpdated(int[] arr, int hours, int mid) {
+
+        int totalH = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            totalH += Math.ceil((double)(arr[i]) / (double)(hours));
+        }
+
+        //if speed is less than the given h hours, We need to increase Speed,to increase speed we need to select lower value between low ---- > mid-1 as mid;
+        return totalH <= hours;
+    }
+     **/
 }
+
 ```
