@@ -1330,13 +1330,13 @@ The first and only line of output must contain the required height setting.
 
 **Example** <br>
 **Input**: <br>
-4 7
-20 15 10 17
+4 7 <br>
+20 15 10 17 <br>
 **Output**: <br>
 15 <br>
 
 **Input**: <br>
-5  <br>
+5  20 <br>
 4 42 40 26 46 <br>
 **Output**: <br>
 36
@@ -1605,3 +1605,178 @@ public class EatingBanana {
 }
 
 ```
+
+### Question 8
+
+Problem Statement:- [**Heaters**](https://leetcode.com/problems/heaters/description/)
+
+```java
+public class Heaters {
+
+    /**
+     * Winter is coming! During the contest, your first job is to design a standard heater with a fixed warm radius to warm all the houses.
+     * 2. Every house can be warmed, as long as the house is within the heater's warm radius range.
+     * 3. Given the positions of houses and heaters on a horizontal line, return the minimum radius standard of heaters so that those heaters could cover all houses.
+     * 4. Notice that all the heaters follow your radius standard, and the warm radius will be the same.
+     * Constraints
+     * 1 <= houses.length, heaters.length <= 3 * 10^4
+     * 1 <= houses[i], heaters[i] <= 10^9
+     * Sample Input
+     * 4
+     * 1 2 5 7
+     * 2
+     * 1 4
+     * Output
+     * 1 2 5 7
+     * (min (1-1, 4 - 1) -> 0) similarly ->  1 1 3
+     * 1 4
+     * 3
+     *
+     */
+    public static void main(String[] args) {
+
+        int houseCount = 4;
+        int heaterCount = 2;
+        int[] house = new int[]{1, 2, 5, 7};
+        int[] heater = new int[]{1, 4};
+
+       System.out.println(getMaxRadiusOfHeater(house, houseCount, heater, heaterCount));
+    }
+
+    private static Integer getMaxRadiusOfHeater(int[] house, int houseCount, int[] heater, int heaterCount) {
+        // to capture maximum distance required
+        int maxRadius = 0;
+
+        for(int i = 0; i < houseCount; i++) {
+            // we will consider the minimum distance between nearest two heaters
+            int output = getNearestHeaterRadius(house[i], heater, heaterCount);
+            // return maximum
+            maxRadius = Math.max(maxRadius, output);
+        }
+
+        return maxRadius;
+    }
+
+    private static int getNearestHeaterRadius(int data, int[] heater, int heaterCount) {
+        int low = 0;
+        int high = heaterCount - 1;
+        int upper = 0;
+        int lower = 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if(heater[mid] == data) {
+                return 0;
+            } else if(heater[mid] < data) {
+                lower = mid;
+                low = mid + 1;
+            } else {
+                upper = mid;
+                high = mid - 1;
+            }
+        }
+
+        return Math.min(Math.abs(data - heater[lower]), Math.abs(data - heater[upper]));
+    }
+}
+```
+
+### Question 9
+
+**Given an array of integer numbers and an integer threshold, we will choose a positive integer divisor, divide all the array by it, and sum the division's result. Find the smallest divisor such that the result mentioned above is less than or equal to threshold.**
+
+**Each result of the division is rounded to the nearest integer greater than or equal to that element. (For example: 7/3 = 3 and 10/2 = 5).**
+
+**It is guaranteed that there will be an answer**
+
+Constraints
+
+1 <= nums.length <= 5 * 10^4 <br>
+1 <= nums[i] <= 10^6 <br>
+nums.length <= threshold <= 10^6 <br>
+Sample Input <br>
+4 <br>
+1 2 5 9 <br>
+6 <br>
+Sample Output <br>
+5 <br>
+Solution:-  <br>
+**Solution is same as koko eating Banana please try by yourself***
+
+### Question 9
+
+1. A conveyor belt has packages that must be shipped from one port to another within D days.
+
+2. The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on the conveyor belt (in the order given by weights). We may not load more weight than the maximum weight capacity of the ship.
+
+3. Return the least weight capacity of the ship that will result in all the packages on the conveyor belt being shipped within D days.
+
+Constraints <br>
+1 <= days <= weights.length <= 5 * 10^4 <br>
+1 <= weights[i] <= 500 <br>
+Sample Input <br>
+10 <br>
+2 3 4 1 5 6 7 9 8 10 <br>
+5 <br>
+Sample Output <br>
+15 <br>
+
+
+```java
+public class ShipPackages {
+
+    public static void main(String[] args) {
+        // Sample input
+        int[] weights = {2, 3, 4, 1, 5, 6, 7, 9, 8, 10};
+        int days = 5;
+
+        // Calling the shipWithinDays function and printing the result
+        int result = shipWithinDays(weights, days);
+        System.out.println(result);
+    }
+
+    // Function to find the least weight capacity of the ship
+    public static int shipWithinDays(int[] weights, int days) {
+        // Set the initial search space
+        int left = 1;
+        int right = 500 * weights.length; // Maximum weight capacity
+
+        // Perform binary search
+        while (left < right) {
+            // Calculate the middle point
+            int mid = left + (right - left) / 2;
+
+            // Check if the current capacity is sufficient
+            if (canShipWithinDays(weights, days, mid)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        // The left pointer now contains the minimum weight capacity
+        return left;
+    }
+
+    // Function to check if all packages can be shipped within the specified days with given capacity
+    private static boolean canShipWithinDays(int[] weights, int days, int capacity) {
+        int currentCapacity = 0;
+        int requiredDays = 1;
+
+        // Iterate through the weights array
+        for (int weight : weights) {
+            // If adding the current weight exceeds the capacity, reset currentCapacity and increase requiredDays
+            if (currentCapacity + weight > capacity) {
+                currentCapacity = 0;
+                requiredDays++;
+            }
+            
+            // Add the current weight to the currentCapacity
+            currentCapacity += weight;
+        }
+
+        // Check if the required days are less than or equal to the specified days
+        return requiredDays <= days;
+    }
+}
+```
+
