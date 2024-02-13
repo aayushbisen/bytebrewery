@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Binary Search 👋
+title: Binary Search
 date: 2024-01-12 03:00:00 +0900
 description: Binary Search Implementation
 categories: [Data Structures and Algorithms]

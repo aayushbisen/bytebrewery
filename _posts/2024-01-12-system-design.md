@@ -1,6 +1,6 @@
 ---
 layout: post
-title: System Design Course 👋
+title: System Design Course
 date: 2024-01-12 03:00:00 +0900
 description: System Design Course
 categories: [System Design]

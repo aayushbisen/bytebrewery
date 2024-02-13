@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Design Pattern Course 👋
+title: Design Pattern Course
 date: 2024-01-12 03:00:00 +0900
 description: Design Pattern Course
 categories: [Design Pattern]
